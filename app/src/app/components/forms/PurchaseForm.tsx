@@ -6,7 +6,7 @@ import { IconHash, IconMoneybag, IconPaperBag, IconWeight } from "@tabler/icons-
 import { useForm, SubmitHandler } from "react-hook-form"
 
 import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type Inputs = {
     brand: string
@@ -16,10 +16,12 @@ type Inputs = {
 }
 
 export function PurchaseForm() {
+    const queryClient = useQueryClient()
+
     const mutation = useMutation({
         mutationFn: (data) => fetch("/api/purchases", { method: "POST", body: JSON.stringify(data) }),
         onSuccess: () => {
-
+            queryClient.invalidateQueries({ queryKey: ['purchases'] })
         },
     })
     const {
