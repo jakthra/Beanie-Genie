@@ -1,4 +1,4 @@
-import { integer, pgEnum, pgTable, serial, uniqueIndex, varchar, doublePrecision, date } from 'drizzle-orm/pg-core';
+import { integer, pgEnum, pgTable, serial, uniqueIndex, varchar, doublePrecision, date, timestamp } from 'drizzle-orm/pg-core';
 
 
 export const purchases = pgTable('purchases', {
@@ -7,6 +7,6 @@ export const purchases = pgTable('purchases', {
     numberOfBags: integer("numberOfBands"),
     weightPerBag: doublePrecision('weightPerBag'),
     cost: doublePrecision("cost"),
-    createdDate: date("entryDate"),
+    createdDate: timestamp("createdDate").defaultNow(),
     purchaseDate: date("purchaseDate")
 });

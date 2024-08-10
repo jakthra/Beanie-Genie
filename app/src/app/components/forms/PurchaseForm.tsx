@@ -2,11 +2,13 @@
 
 import { DotsHorizontalIcon, MagnifyingGlassIcon, SlashIcon } from "@radix-ui/react-icons";
 import { Box, Button, Card, Flex, Grid, IconButton, Select, Spinner, Table, Text, TextField } from "@radix-ui/themes";
-import { IconHash, IconMoneybag, IconPaperBag, IconWeight } from "@tabler/icons-react";
+import { IconCalendar, IconHash, IconMoneybag, IconPaperBag, IconWeight } from "@tabler/icons-react";
 import { useForm, SubmitHandler } from "react-hook-form"
+import { DatePickerInput } from '@mantine/dates';
 
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addPurchase } from "../clientGetters";
 
 type Inputs = {
     brand: string
@@ -19,7 +21,7 @@ export function PurchaseForm() {
     const queryClient = useQueryClient()
 
     const mutation = useMutation({
-        mutationFn: (data) => fetch("/api/purchases", { method: "POST", body: JSON.stringify(data) }),
+        mutationFn: addPurchase,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['purchases'] })
         },
@@ -32,7 +34,12 @@ export function PurchaseForm() {
         formState: { errors },
     } = useForm<Inputs>()
     // TODO: Invalidate the SSR provided data (rehydrate the server rendered list)
-    const onSubmit: SubmitHandler<Inputs> = (data) => { mutation.mutate(data); reset() }
+    //const onSubmit: SubmitHandler<Inputs> = (data) => { console.log(data) }
+
+    const [purchaseDate, setpurchaseDate] = useState<Date>(new Date());
+
+    const onSubmit: SubmitHandler<Inputs> = (data) => { mutation.mutate({ ...data, purchaseDate: purchaseDate.toISOString() }); reset() }
+
 
     return (
         <Box>
@@ -46,6 +53,16 @@ export function PurchaseForm() {
                             <Text as="div" color="gray" size="2">
                                 Add a new coffee purchase to the database
                             </Text>
+                            <Box>
+                                <DatePickerInput
+                                    placeholder="Purchase date"
+                                    value={purchaseDate}
+                                    onChange={setpurchaseDate}
+                                    size="xs"
+                                    variant="subtle"
+                                    leftSection={<IconCalendar size="14" />}
+                                />
+                            </Box>
                             <Box >
                                 <TextField.Root {...register("brand", { required: true })} placeholder="Coffee brand" size="2">
                                     <TextField.Slot>

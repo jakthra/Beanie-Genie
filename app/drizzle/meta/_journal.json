@@ -8,6 +8,13 @@
       "when": 1723101636100,
       "tag": "0000_legal_stardust",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1723274347923,
+      "tag": "0001_funny_psylocke",
+      "breakpoints": true
     }
   ]
 }
