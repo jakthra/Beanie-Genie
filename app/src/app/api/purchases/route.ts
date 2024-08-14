@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/app/lib/db'
 import { purchases } from '@/app/lib/schema'
@@ -8,8 +7,8 @@ type ResponseData = {
 }
 
 export async function GET(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
+  req: NextRequest,
+  res: NextResponse<ResponseData>
 ) {
   const data = await db.select().from(purchases)
   return NextResponse.json(data)

@@ -33,12 +33,10 @@ export function PurchaseForm() {
         reset,
         formState: { errors },
     } = useForm<Inputs>()
-    // TODO: Invalidate the SSR provided data (rehydrate the server rendered list)
-    //const onSubmit: SubmitHandler<Inputs> = (data) => { console.log(data) }
 
-    const [purchaseDate, setpurchaseDate] = useState<Date>(new Date());
+    const [purchaseDate, setpurchaseDate] = useState<Date | null>(new Date());
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => { mutation.mutate({ ...data, purchaseDate: purchaseDate.toISOString() }); reset() }
+    const onSubmit: SubmitHandler<Inputs> = (data) => { mutation.mutate({ ...data, purchaseDate: purchaseDate ? purchaseDate.toISOString() : '' }); reset() }
 
 
     return (

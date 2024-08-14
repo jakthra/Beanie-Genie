@@ -15,6 +15,13 @@
       "when": 1723274347923,
       "tag": "0001_funny_psylocke",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1723618015992,
+      "tag": "0002_early_tarantula",
+      "breakpoints": true
     }
   ]
 }

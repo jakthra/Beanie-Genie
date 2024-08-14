@@ -1,0 +1,1 @@
+ALTER TABLE "purchases" ALTER COLUMN "createdDate" SET NOT NULL;
