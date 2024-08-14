@@ -9,11 +9,6 @@ import { PurchaseEntries } from "./components/PurchaseEntries";
 import { db } from "./lib/db";
 
 
-
-
-
-
-
 export default async function Home() {
   const queryClient = getQueryClient()
   await queryClient.prefetchQuery({
