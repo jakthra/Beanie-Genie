@@ -4,6 +4,7 @@ import { integer, pgEnum, pgTable, serial, uniqueIndex, varchar, doublePrecision
 export const purchases = pgTable('purchases', {
     id: serial('id').primaryKey().notNull(),
     supplier: varchar('supplier', { length: 256 }).notNull(),
+    productName: varchar('productName', { length: 256 }),
     originRegion: varchar('originRegion', { length: 256 }),
     originCountry: varchar('originCountry', { length: 256 }),
     numberOfBags: integer("numberOfBands"),
