@@ -26,7 +26,6 @@ export default function RootLayout({
         <Theme appearance="dark" accentColor="brown" grayColor="sand" radius="large" scaling="95%">
           <Providers>
             {children}
-            {process.env.NODE_ENV == 'development' && <ThemePanel />}
           </Providers>
         </Theme>
       </body>

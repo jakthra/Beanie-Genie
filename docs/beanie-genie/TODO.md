@@ -1,3 +1,4 @@
-* Add variant/model-name to data model
-* Setup init container for migration
+
 * Add k8s authentication towards github docker registry
+* Setup init container for migration
+* Add drone/or other CI/CD automation

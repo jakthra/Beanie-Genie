@@ -18,12 +18,11 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Flex gap="3">
-
+      <Flex gap="3" direction={{ 'initial': 'column', 'lg': 'row' }}>
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense>
-            <PurchaseEntries />
             <PurchaseForm />
+            <PurchaseEntries />
           </Suspense>
         </HydrationBoundary>
       </Flex>
