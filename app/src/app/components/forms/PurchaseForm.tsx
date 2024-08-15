@@ -2,7 +2,7 @@
 
 import { DotsHorizontalIcon, MagnifyingGlassIcon, SlashIcon } from "@radix-ui/react-icons";
 import { Box, Button, Card, Flex, Grid, IconButton, Select, Spinner, Table, Text, TextField } from "@radix-ui/themes";
-import { IconCalendar, IconHash, IconMoneybag, IconPaperBag, IconWeight } from "@tabler/icons-react";
+import { IconCalendar, IconGlobe, IconHash, IconMap, IconMoneybag, IconPaperBag, IconWeight } from "@tabler/icons-react";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { DatePickerInput } from '@mantine/dates';
 
@@ -11,7 +11,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addPurchase } from "../clientGetters";
 
 type Inputs = {
-    brand: string
+    supplier: string
+    originCountry: string
+    originRegion: string
     numberOfBags: number
     weightPerBag: number
     cost: number
@@ -62,9 +64,23 @@ export function PurchaseForm() {
                                 />
                             </Box>
                             <Box >
-                                <TextField.Root {...register("brand", { required: true })} placeholder="Coffee brand" size="2">
+                                <TextField.Root {...register("supplier", { required: true })} placeholder="Coffee supplier/roaster" size="2">
                                     <TextField.Slot>
                                         <SlashIcon height="16" width="16" />
+                                    </TextField.Slot>
+                                </TextField.Root>
+                            </Box>
+                            <Box >
+                                <TextField.Root {...register("originCountry")} placeholder="Country of origin" size="2">
+                                    <TextField.Slot>
+                                        <IconGlobe height="16" width="16" />
+                                    </TextField.Slot>
+                                </TextField.Root>
+                            </Box>
+                            <Box >
+                                <TextField.Root {...register("originRegion")} placeholder="Region of origin" size="2">
+                                    <TextField.Slot>
+                                        <IconMap height="16" width="16" />
                                     </TextField.Slot>
                                 </TextField.Root>
                             </Box>

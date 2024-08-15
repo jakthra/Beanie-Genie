@@ -22,6 +22,13 @@
       "when": 1723618015992,
       "tag": "0002_early_tarantula",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1723744120781,
+      "tag": "0003_pink_supreme_intelligence",
+      "breakpoints": true
     }
   ]
 }
