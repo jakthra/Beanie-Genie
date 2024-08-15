@@ -15,7 +15,7 @@ export function PurchaseEntries() {
             <Table.Header>
                 <Table.Row>
                     <Table.ColumnHeaderCell>Purchase date</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Brand</Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>Supplier</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Number of bags</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Weight per bag</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Cost</Table.ColumnHeaderCell>
@@ -27,7 +27,7 @@ export function PurchaseEntries() {
                 {data && data.map((entry) => (
                     <Table.Row key={entry.id}>
                         <Table.RowHeaderCell>{entry.purchaseDate}</Table.RowHeaderCell>
-                        <Table.Cell>{entry.brand}</Table.Cell>
+                        <Table.Cell>{entry.supplier}</Table.Cell>
                         <Table.Cell>{entry.numberOfBags}</Table.Cell>
                         <Table.Cell>{entry.weightPerBag}</Table.Cell>
                         <Table.Cell>{entry.cost}</Table.Cell>
