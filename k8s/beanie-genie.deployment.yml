@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beanie-genie-deployment
+  labels:
+    app: beanie-genie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beanie-genie
+  template:
+    metadata:
+      labels:
+        app: beanie-genie
+    spec:
+      containers:
+        - name: beanie-genie-app
+          imagePullPolicy: Always
+          image: jakobthrane/beanie-genie:latest
+          envFrom:
+            - configMapRef:
+                name: beanie-genie-config
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: standard-postgres-postgresql
+                  key: postgres-password
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
