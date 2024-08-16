@@ -1,15 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/app/lib/db'
-import { inventory, purchases } from '@/app/lib/schema'
-import { eq } from 'drizzle-orm'
 import { getConsumableInventory } from '@/app/lib/serverGetters'
+import { NextRequest, NextResponse } from 'next/server'
 
-
+type ResponseData = {
+    message: string
+}
 
 export async function GET(
     req: NextRequest,
-    res: NextResponse
+    res: NextResponse<ResponseData>
 ) {
     const data = await getConsumableInventory()
     return NextResponse.json(data)
 }
+
+export async function POST(
+    req: NextRequest,
+    res: NextResponse<ResponseData>
+) { }
