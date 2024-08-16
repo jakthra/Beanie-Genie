@@ -8,7 +8,7 @@ import { DatePickerInput } from '@mantine/dates';
 
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addPurchase } from "../clientGetters";
+import { addPurchase } from "../../lib/clientGetters";
 
 type Inputs = {
     supplier: string
@@ -27,6 +27,7 @@ export function PurchaseForm() {
         mutationFn: addPurchase,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['purchases'] })
+            queryClient.invalidateQueries({ queryKey: ['inventory', 'consumable'] })
         },
     })
     const {
