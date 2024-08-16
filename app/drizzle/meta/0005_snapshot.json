@@ -1,0 +1,162 @@
+{
+  "id": "e14358ab-1249-40fa-afa5-9d04244362e5",
+  "prevId": "ec4dbe63-b091-49a3-818a-644a54e5660c",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.inventory": {
+      "name": "inventory",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "inventoryType": {
+          "name": "inventoryType",
+          "type": "inventoryType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "purchase_id": {
+          "name": "purchase_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inventoryName": {
+          "name": "inventoryName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "statusType": {
+          "name": "statusType",
+          "type": "consumableStatusType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'unopened'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "inventory_purchase_id_purchases_id_fk": {
+          "name": "inventory_purchase_id_purchases_id_fk",
+          "tableFrom": "inventory",
+          "tableTo": "purchases",
+          "columnsFrom": [
+            "purchase_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.purchases": {
+      "name": "purchases",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "supplier": {
+          "name": "supplier",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "productName": {
+          "name": "productName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "originRegion": {
+          "name": "originRegion",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "originCountry": {
+          "name": "originCountry",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "numberOfBands": {
+          "name": "numberOfBands",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weightPerBag": {
+          "name": "weightPerBag",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cost": {
+          "name": "cost",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdDate": {
+          "name": "createdDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "purchaseDate": {
+          "name": "purchaseDate",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "public.consumableStatusType": {
+      "name": "consumableStatusType",
+      "schema": "public",
+      "values": [
+        "unopened",
+        "inprogress",
+        "empty"
+      ]
+    },
+    "public.inventoryType": {
+      "name": "inventoryType",
+      "schema": "public",
+      "values": [
+        "consumable",
+        "non-consumable"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

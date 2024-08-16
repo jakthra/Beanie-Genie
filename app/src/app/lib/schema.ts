@@ -7,9 +7,20 @@ export const purchases = pgTable('purchases', {
     productName: varchar('productName', { length: 256 }),
     originRegion: varchar('originRegion', { length: 256 }),
     originCountry: varchar('originCountry', { length: 256 }),
-    numberOfBags: integer("numberOfBands"),
+    numberOfBags: integer("numberOfBands").notNull(),
     weightPerBag: doublePrecision('weightPerBag'),
     cost: doublePrecision("cost"),
     createdDate: timestamp("createdDate").defaultNow().notNull(),
     purchaseDate: date("purchaseDate")
 });
+
+export const inventoryTypeEnum = pgEnum("inventoryType", ['consumable', 'non-consumable'])
+export const consumableStatusTypeEnum = pgEnum("consumableStatusType", ['unopened', 'inprogress', 'empty'])
+
+export const inventory = pgTable('inventory', {
+    id: serial('id').primaryKey().notNull(),
+    inventoryType: inventoryTypeEnum('inventoryType').notNull(),
+    purchaseId: integer('purchase_id').references(() => purchases.id),
+    inventoryName: varchar('inventoryName', { length: 256 }).notNull(),
+    status: consumableStatusTypeEnum('statusType').notNull().default('unopened')
+})

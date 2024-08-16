@@ -1,8 +1,8 @@
 'use client'
-import { Card, Spinner, Table } from "@radix-ui/themes";
+import { Card, Spinner, Table, Text } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getPurchases } from "./clientGetters";
+import { getPurchases } from "../lib/clientGetters";
 
 
 export function PurchaseEntries() {
@@ -10,16 +10,16 @@ export function PurchaseEntries() {
         queryKey: ['purchases'],
         queryFn: getPurchases
     })
-    return (<Card>
+    return (
         <Table.Root>
             <Table.Header>
                 <Table.Row>
                     <Table.ColumnHeaderCell>Purchase date</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Supplier</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Product name</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Number of bags</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Weight per bag</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Cost</Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>Number of bags (#)</Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>Weight per bag (g)</Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>Cost (DKK)</Table.ColumnHeaderCell>
                 </Table.Row>
             </Table.Header>
 
@@ -30,12 +30,11 @@ export function PurchaseEntries() {
                         <Table.RowHeaderCell>{entry.purchaseDate}</Table.RowHeaderCell>
                         <Table.Cell>{entry.supplier}</Table.Cell>
                         <Table.Cell>{entry.productName}</Table.Cell>
-                        <Table.Cell>{entry.numberOfBags}</Table.Cell>
-                        <Table.Cell>{entry.weightPerBag}</Table.Cell>
-                        <Table.Cell>{entry.cost}</Table.Cell>
+                        <Table.Cell>{`${entry.numberOfBags}`} <Text color="gray">#</Text></Table.Cell>
+                        <Table.Cell>{`${entry.weightPerBag}`} <Text color="gray">g</Text></Table.Cell>
+                        <Table.Cell>{`${entry.cost}`} <Text color="gray">DKK</Text></Table.Cell>
                     </Table.Row>
                 ))}
             </Table.Body>
-        </Table.Root>
-    </Card>);
+        </Table.Root>);
 }
