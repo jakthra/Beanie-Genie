@@ -3,7 +3,6 @@ import { Card, Spinner, Table, Text, Badge, DropdownMenu } from "@radix-ui/theme
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { getInventory, patchInventory } from "../lib/clientGetters";
-import { IconChevronCompactDown } from "@tabler/icons-react";
 
 function getStatusColor(status: 'unopened' | 'inprogress' | 'empty') {
     if (status === 'unopened') {
@@ -38,7 +37,9 @@ export function ConsumableInventoryEntries() {
             <Table.Header>
                 <Table.Row>
                     <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>Supplier/Roaster</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Product name</Table.ColumnHeaderCell>
+                    <Table.ColumnHeaderCell>Bag #</Table.ColumnHeaderCell>
                     <Table.ColumnHeaderCell>Weight</Table.ColumnHeaderCell>
                 </Table.Row>
             </Table.Header>
@@ -59,7 +60,9 @@ export function ConsumableInventoryEntries() {
                                 </DropdownMenu.Content>
                             </DropdownMenu.Root>
                         </Table.RowHeaderCell>
+                        <Table.Cell>{entry.purchases.supplier}</Table.Cell>
                         <Table.Cell>{entry.purchases.productName}</Table.Cell>
+                        <Table.Cell>{entry.inventory.purchaseBagIndex}</Table.Cell>
                         <Table.Cell>{`${entry.purchases.weightPerBag}`} <Text color="gray">g</Text></Table.Cell>
                     </Table.Row>
                 ))}

@@ -21,7 +21,7 @@ export const inventory = pgTable('inventory', {
     id: serial('id').primaryKey().notNull(),
     inventoryType: inventoryTypeEnum('inventoryType').notNull(),
     purchaseId: integer('purchase_id').references(() => purchases.id),
-    inventoryName: varchar('inventoryName', { length: 256 }).notNull(),
+    purchaseBagIndex: integer('purchaseBagIndex').notNull(),
     status: consumableStatusTypeEnum('statusType').notNull().default('unopened')
 })
 
