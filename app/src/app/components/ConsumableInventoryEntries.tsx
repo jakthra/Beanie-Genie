@@ -1,8 +1,8 @@
 'use client'
 import { Card, Spinner, Table, Text, Badge, DropdownMenu } from "@radix-ui/themes";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { getInventory } from "../lib/clientGetters";
+import { getInventory, patchInventory } from "../lib/clientGetters";
 import { IconChevronCompactDown } from "@tabler/icons-react";
 
 function getStatusColor(status: 'unopened' | 'inprogress' | 'empty') {
@@ -17,11 +17,22 @@ function getStatusColor(status: 'unopened' | 'inprogress' | 'empty') {
     }
 }
 
+
 export function ConsumableInventoryEntries() {
+    const queryClient = useQueryClient()
     const { status, data } = useQuery({
         queryKey: ['inventory', 'consumable'],
         queryFn: getInventory
     })
+
+    const mutation = useMutation({
+        mutationFn: patchInventory,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['inventory', 'consumable'] })
+        },
+    })
+
+
     return (
         <Table.Root>
             <Table.Header>
@@ -42,9 +53,9 @@ export function ConsumableInventoryEntries() {
                                     <Badge color={getStatusColor(entry.inventory.status)}>{entry.inventory.status} <DropdownMenu.TriggerIcon /></Badge>
                                 </DropdownMenu.Trigger>
                                 <DropdownMenu.Content>
-                                    <DropdownMenu.Item >Unopened</DropdownMenu.Item>
-                                    <DropdownMenu.Item >Inprogress</DropdownMenu.Item>
-                                    <DropdownMenu.Item >Empty</DropdownMenu.Item>
+                                    <DropdownMenu.Item onClick={() => mutation.mutate({ ...entry.inventory, status: 'unopened' })}>Unopened</DropdownMenu.Item>
+                                    <DropdownMenu.Item onClick={() => mutation.mutate({ ...entry.inventory, status: 'inprogress' })}>Inprogress</DropdownMenu.Item>
+                                    <DropdownMenu.Item onClick={() => mutation.mutate({ ...entry.inventory, status: 'empty' })}>Empty</DropdownMenu.Item>
                                 </DropdownMenu.Content>
                             </DropdownMenu.Root>
                         </Table.RowHeaderCell>

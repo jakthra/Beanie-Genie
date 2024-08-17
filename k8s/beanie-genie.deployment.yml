@@ -17,7 +17,7 @@ spec:
       containers:
         - name: beanie-genie-app
           imagePullPolicy: Always
-          image: jakobthrane/beanie-genie:latest
+          image: ghcr.io/jakthra/beanie-genie:main
           envFrom:
             - configMapRef:
                 name: beanie-genie-config

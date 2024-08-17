@@ -24,3 +24,11 @@ export const inventory = pgTable('inventory', {
     inventoryName: varchar('inventoryName', { length: 256 }).notNull(),
     status: consumableStatusTypeEnum('statusType').notNull().default('unopened')
 })
+
+export const inventoryStatusChanges = pgTable('inventory_status_changes', {
+    id: serial('id').primaryKey().notNull(),
+    inventoryId: integer('inventory_id').references(() => inventory.id),
+    createdDate: timestamp("createdDate").defaultNow().notNull(),
+    statusFrom: consumableStatusTypeEnum('statusFrom').notNull(),
+    statusTo: consumableStatusTypeEnum('statusTo').notNull()
+})
