@@ -1,12 +1,12 @@
 'use server'
 import { asc, desc, eq } from "drizzle-orm";
 import { db } from "./db";
-import { inventory, purchases } from "./schema";
+import { inventory, products, purchases } from "./schema";
 
 export async function getPurchases() {
-    return db.select().from(purchases)
+    return db.select().from(purchases).leftJoin(products, eq(purchases.productId, products.id))
 }
 
 export async function getConsumableInventory() {
-    return db.select().from(inventory).where(eq(inventory.inventoryType, 'consumable')).leftJoin(purchases, eq(purchases.id, inventory.purchaseId)).orderBy(asc(purchases.purchaseDate), purchases.supplier, purchases.productName, inventory.purchaseBagIndex)
+    return db.select().from(inventory).where(eq(inventory.inventoryType, 'consumable')).leftJoin(purchases, eq(purchases.id, inventory.purchaseId)).leftJoin(products, eq(purchases.productId, products.id)).orderBy(asc(purchases.purchaseDate), products.supplier, products.productName, inventory.purchaseBagIndex)
 }

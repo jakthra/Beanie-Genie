@@ -64,6 +64,20 @@
       "when": 1723924129955,
       "tag": "0008_dry_aqueduct",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1724098581404,
+      "tag": "0009_chief_nemesis",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1724100912324,
+      "tag": "0010_spooky_cerise",
+      "breakpoints": true
     }
   ]
 }

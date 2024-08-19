@@ -26,13 +26,13 @@ export function PurchaseEntries() {
             <Table.Body>
                 {status == 'pending' && <Spinner />}
                 {data && data.map((entry) => (
-                    <Table.Row key={entry.id}>
-                        <Table.RowHeaderCell>{entry.purchaseDate}</Table.RowHeaderCell>
-                        <Table.Cell>{entry.supplier}</Table.Cell>
-                        <Table.Cell>{entry.productName}</Table.Cell>
-                        <Table.Cell>{`${entry.numberOfBags}`} <Text color="gray">#</Text></Table.Cell>
-                        <Table.Cell>{`${entry.weightPerBag}`} <Text color="gray">g</Text></Table.Cell>
-                        <Table.Cell>{`${entry.cost}`} <Text color="gray">DKK</Text></Table.Cell>
+                    <Table.Row key={entry.purchases.id}>
+                        <Table.RowHeaderCell>{entry.purchases.purchaseDate}</Table.RowHeaderCell>
+                        <Table.Cell>{entry.products.supplier}</Table.Cell>
+                        <Table.Cell>{entry.products.productName}</Table.Cell>
+                        <Table.Cell>{`${entry.purchases.numberOfBags}`} <Text color="gray">#</Text></Table.Cell>
+                        <Table.Cell>{`${entry.purchases.weightPerBag}`} <Text color="gray">g</Text></Table.Cell>
+                        <Table.Cell>{`${entry.purchases.cost}`} <Text color="gray">DKK</Text></Table.Cell>
                     </Table.Row>
                 ))}
             </Table.Body>
