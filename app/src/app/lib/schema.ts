@@ -1,18 +1,28 @@
 import { integer, pgEnum, pgTable, serial, uniqueIndex, varchar, doublePrecision, date, timestamp } from 'drizzle-orm/pg-core';
 
 
-export const purchases = pgTable('purchases', {
+
+export const products = pgTable('products', {
     id: serial('id').primaryKey().notNull(),
     supplier: varchar('supplier', { length: 256 }).notNull(),
     productName: varchar('productName', { length: 256 }),
     originRegion: varchar('originRegion', { length: 256 }),
     originCountry: varchar('originCountry', { length: 256 }),
+    rating: integer("rating").default(0).notNull(),
+    createdDate: timestamp("createdDate").defaultNow().notNull()
+});
+
+
+export const purchases = pgTable('purchases', {
+    id: serial('id').primaryKey().notNull(),
+    productId: integer('product_id').references(() => products.id),
     numberOfBags: integer("numberOfBands").notNull(),
     weightPerBag: doublePrecision('weightPerBag'),
     cost: doublePrecision("cost"),
     createdDate: timestamp("createdDate").defaultNow().notNull(),
     purchaseDate: date("purchaseDate")
 });
+
 
 export const inventoryTypeEnum = pgEnum("inventoryType", ['consumable', 'non-consumable'])
 export const consumableStatusTypeEnum = pgEnum("consumableStatusType", ['unopened', 'inprogress', 'empty'])

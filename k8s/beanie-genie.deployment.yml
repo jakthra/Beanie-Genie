@@ -36,3 +36,15 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 3000
+      initContainers:
+        - name: drizzle-migrate
+          image: ghcr.io/jakthra/beanie-genie-drizzle:main
+          envFrom:
+            - configMapRef:
+                name: beanie-genie-config
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: standard-postgres-postgresql
+                  key: postgres-password

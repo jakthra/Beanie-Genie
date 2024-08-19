@@ -1,0 +1,277 @@
+{
+  "id": "ccf3fd0d-124b-4a78-8269-eef1af38955f",
+  "prevId": "6fe2c7ef-220c-43c7-8aa8-159e98532ab0",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.inventory": {
+      "name": "inventory",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "inventoryType": {
+          "name": "inventoryType",
+          "type": "inventoryType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "purchase_id": {
+          "name": "purchase_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "purchaseBagIndex": {
+          "name": "purchaseBagIndex",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "statusType": {
+          "name": "statusType",
+          "type": "consumableStatusType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'unopened'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "inventory_purchase_id_purchases_id_fk": {
+          "name": "inventory_purchase_id_purchases_id_fk",
+          "tableFrom": "inventory",
+          "tableTo": "purchases",
+          "columnsFrom": [
+            "purchase_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.inventory_status_changes": {
+      "name": "inventory_status_changes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "inventory_id": {
+          "name": "inventory_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdDate": {
+          "name": "createdDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "statusFrom": {
+          "name": "statusFrom",
+          "type": "consumableStatusType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "statusTo": {
+          "name": "statusTo",
+          "type": "consumableStatusType",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "inventory_status_changes_inventory_id_inventory_id_fk": {
+          "name": "inventory_status_changes_inventory_id_inventory_id_fk",
+          "tableFrom": "inventory_status_changes",
+          "tableTo": "inventory",
+          "columnsFrom": [
+            "inventory_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.products": {
+      "name": "products",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "supplier": {
+          "name": "supplier",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "productName": {
+          "name": "productName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "originRegion": {
+          "name": "originRegion",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "originCountry": {
+          "name": "originCountry",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rating": {
+          "name": "rating",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "createdDate": {
+          "name": "createdDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "products_productName_unique": {
+          "name": "products_productName_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "productName"
+          ]
+        }
+      }
+    },
+    "public.purchases": {
+      "name": "purchases",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "product_id": {
+          "name": "product_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "numberOfBands": {
+          "name": "numberOfBands",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weightPerBag": {
+          "name": "weightPerBag",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cost": {
+          "name": "cost",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdDate": {
+          "name": "createdDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "purchaseDate": {
+          "name": "purchaseDate",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "purchases_product_id_products_id_fk": {
+          "name": "purchases_product_id_products_id_fk",
+          "tableFrom": "purchases",
+          "tableTo": "products",
+          "columnsFrom": [
+            "product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "public.consumableStatusType": {
+      "name": "consumableStatusType",
+      "schema": "public",
+      "values": [
+        "unopened",
+        "inprogress",
+        "empty"
+      ]
+    },
+    "public.inventoryType": {
+      "name": "inventoryType",
+      "schema": "public",
+      "values": [
+        "consumable",
+        "non-consumable"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

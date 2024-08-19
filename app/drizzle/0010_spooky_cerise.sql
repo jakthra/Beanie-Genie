@@ -1,0 +1,1 @@
+ALTER TABLE "products" ADD COLUMN "rating" integer DEFAULT 0 NOT NULL;--> statement-breakpoint
