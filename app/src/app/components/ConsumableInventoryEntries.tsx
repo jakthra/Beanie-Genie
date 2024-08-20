@@ -72,8 +72,8 @@ export function ConsumableInventoryEntries() {
                         <Table.Cell>
                             <HoverCard.Root>
                                 <HoverCard.Trigger>
-                                    <Text>
-                                        <Link href="">
+                                    <Text style={{ 'cursor': 'pointer' }}>
+                                        <Link>
                                             {entry.products.productName} {entry.products.rating === 5 && '🔥'}
                                         </Link>
                                     </Text>
