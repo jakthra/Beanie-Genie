@@ -1,13 +1,13 @@
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { inventory, products, purchases } from "./schema";
 
-type InventoryJoined = {
+export type InventoryJoined = {
     inventory: InferSelectModel<typeof inventory>
     purchases: InferSelectModel<typeof purchases>
     products: InferSelectModel<typeof products>
 }
 
-type PurchaseJoined = {
+export type PurchaseJoined = {
     purchases: InferSelectModel<typeof purchases>
     products: InferSelectModel<typeof products>
 }

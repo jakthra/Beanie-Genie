@@ -7,6 +7,7 @@ import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
 import { PurchaseEntries } from "./components/PurchaseEntries";
 import { ConsumableInventoryEntries } from "./components/ConsumableInventoryEntries";
 import { getConsumableInventory, getPurchases } from "./lib/serverGetters";
+import { Overview } from "./components/Overview";
 
 
 export default async function Home() {
@@ -22,30 +23,10 @@ export default async function Home() {
   })
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Flex gap="3" direction={{ 'initial': 'column', 'lg': 'row' }}>
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <Suspense>
-            <PurchaseForm />
-            <Card>
-              <Tabs.Root defaultValue="consumables">
-                <Tabs.List>
-                  <Tabs.Trigger value="consumables">Consumables</Tabs.Trigger>
-                  <Tabs.Trigger value="purchases">Purchases</Tabs.Trigger>
-                </Tabs.List>
-                <Box pt="3">
-                  <Tabs.Content value="consumables">
-                    <ConsumableInventoryEntries />
-                  </Tabs.Content>
-                  <Tabs.Content value="purchases">
-                    <PurchaseEntries />
-                  </Tabs.Content>
-                </Box>
-              </Tabs.Root>
-            </Card>
-          </Suspense>
-        </HydrationBoundary>
-      </Flex>
-    </main >
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Suspense>
+        <Overview />
+      </Suspense>
+    </HydrationBoundary>
   );
 }
