@@ -1,7 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MantineProvider } from '@mantine/core';
 import { Theme } from '@radix-ui/themes';
 import { Overview } from './Overview';
 
@@ -27,11 +26,9 @@ export const Default: Story = {
       // });
       return (
         <Theme appearance="dark" accentColor="brown" grayColor="sand" radius="large" scaling="95%">
-          <MantineProvider>
-            <QueryClientProvider client={queryClient}>
-              <Story />
-            </QueryClientProvider>
-          </MantineProvider>
+          <QueryClientProvider client={queryClient}>
+            <Story />
+          </QueryClientProvider>
         </Theme>
       );
 
