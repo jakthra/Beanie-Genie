@@ -7,6 +7,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import Providers from "./providers";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,10 +24,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Theme appearance="dark" accentColor="brown" grayColor="sand" radius="large" scaling="95%">
-          <Providers>
-            {children}
-          </Providers>
+        <Theme appearance="dark" accentColor="brown" panelBackground="solid" grayColor="slate" radius="large" scaling="95%">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Providers>
+              {children}
+            </Providers>
+          </ThemeProvider>
         </Theme>
       </body>
     </html>

@@ -1,5 +1,5 @@
 'use client'
-import { Card, Spinner, Table, Text, Badge, DropdownMenu, HoverCard, Flex, Box, Link, IconButton } from "@radix-ui/themes";
+import { Card, Spinner, Table, Text, Badge, DropdownMenu, Flex, Box, Link, IconButton, Popover } from "@radix-ui/themes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { getInventory, patchInventory, patchProduct } from "../lib/clientGetters";
@@ -70,15 +70,15 @@ export function ConsumableInventoryEntries() {
                         </Table.RowHeaderCell>
                         <Table.Cell>{entry.products.supplier}</Table.Cell>
                         <Table.Cell>
-                            <HoverCard.Root>
-                                <HoverCard.Trigger>
+                            <Popover.Root>
+                                <Popover.Trigger>
                                     <Text style={{ 'cursor': 'pointer' }}>
-                                        <Link>
+                                        <Link >
                                             {entry.products.productName} {entry.products.rating === 5 && '🔥'}
                                         </Link>
                                     </Text>
-                                </HoverCard.Trigger>
-                                <HoverCard.Content>
+                                </Popover.Trigger>
+                                <Popover.Content>
                                     <Flex>
                                         <Box asChild flexShrink="0">
                                             <Flex direction={"column"} gap="2">
@@ -93,8 +93,8 @@ export function ConsumableInventoryEntries() {
                                             </Flex>
                                         </Box>
                                     </Flex>
-                                </HoverCard.Content>
-                            </HoverCard.Root>
+                                </Popover.Content>
+                            </Popover.Root>
                         </Table.Cell>
                         <Table.Cell>{entry.inventory.purchaseBagIndex}</Table.Cell>
                         <Table.Cell>{`${entry.purchases.weightPerBag}`} <Text color="gray">g</Text></Table.Cell>
