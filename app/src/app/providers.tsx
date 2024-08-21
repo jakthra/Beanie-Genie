@@ -4,6 +4,7 @@ import type * as React from 'react'
 import { getQueryClient } from './lib/getQueryClient'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { MantineProvider } from '@mantine/core'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
     const queryClient = getQueryClient()
@@ -11,7 +12,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     return (
         <MantineProvider defaultColorScheme="dark">
             <QueryClientProvider client={queryClient}>
-                {children}
+                <TooltipProvider>
+                    {children}
+                </TooltipProvider>
                 <ReactQueryDevtools />
             </QueryClientProvider>
         </MantineProvider>
