@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-query'
 import Providers from "./providers";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Navbar } from "./components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -32,7 +33,13 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Providers>
-              {children}
+              <div className="flex min-h-screen w-full flex-col bg-muted/40">
+                <Navbar />
+                <main className="lg:flex lg:flex-col lg:items-center lg:justify-between lg:p-24">
+                  {children}
+                </main>
+
+              </div>
             </Providers>
           </ThemeProvider>
         </Theme>
