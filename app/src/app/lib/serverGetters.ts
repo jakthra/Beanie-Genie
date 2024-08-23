@@ -8,5 +8,5 @@ export async function getPurchases() {
 }
 
 export async function getConsumableInventory() {
-    return db.select().from(inventory).where(eq(inventory.inventoryType, 'consumable')).leftJoin(purchases, eq(purchases.id, inventory.purchaseId)).leftJoin(products, eq(purchases.productId, products.id)).orderBy(asc(purchases.purchaseDate), products.supplier, products.productName, inventory.purchaseBagIndex)
+    return db.select().from(inventory).where(eq(inventory.inventoryType, 'consumable')).leftJoin(purchases, eq(purchases.id, inventory.purchaseId)).leftJoin(products, eq(purchases.productId, products.id)).orderBy(asc(inventory.status), asc(purchases.purchaseDate), products.supplier, products.productName, inventory.purchaseBagIndex)
 }

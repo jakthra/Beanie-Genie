@@ -36,12 +36,15 @@ import { Button } from "@/components/ui/button"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import { Input } from "@/components/ui/input"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Text } from "@radix-ui/themes"
+import { twMerge } from "tailwind-merge"
 
 
 type NavItem = {
     name: string,
     link: string,
-    icon: any
+    icon: any,
+    active: boolean
 }
 
 type LinkStyle = {
@@ -52,12 +55,14 @@ type LinkStyle = {
 export const navItems: NavItem[] = [{
     name: "Overview",
     link: "/",
-    icon: ShoppingCart
+    icon: ShoppingCart,
+    active: true
 },
 {
     name: "Products",
     link: "/products",
-    icon: ShoppingBag
+    icon: ShoppingBag,
+    active: true
 }
 ]
 const logoStyle = "group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
@@ -71,6 +76,8 @@ export function Navbar() {
         <>
             <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
                 <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
+
+                    <Image alt="" src="/icon.svg" width={30} height={50} />
                     {navItems.map(navItem => {
                         const style = pathname == navItem.link ? activeStyle : nonactiveStyle
                         return (
@@ -80,7 +87,7 @@ export function Navbar() {
                                         href={navItem.link}
                                         className={style.linkClassName}
                                     >
-                                        <navItem.icon className={style.iconClassName} />
+                                        <navItem.icon className={twMerge(style.iconClassName)} />
                                         <span className="sr-only">{navItem.name}</span>
                                     </Link>
                                 </TooltipTrigger>
@@ -126,6 +133,7 @@ export function Navbar() {
                         </SheetContent>
                     </Sheet>
 
+                    <Text>Beanie Genie</Text>
                     <div className="relative ml-auto flex-1 md:grow-0">
                         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
@@ -142,7 +150,7 @@ export function Navbar() {
                                 className="overflow-hidden rounded-full"
                             >
                                 <Image
-                                    src="/placeholder-user.jpg"
+                                    src="/avatar.svg"
                                     width={36}
                                     height={36}
                                     alt="Avatar"

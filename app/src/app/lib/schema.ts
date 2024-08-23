@@ -20,7 +20,7 @@ export const purchases = pgTable('purchases', {
     weightPerBag: doublePrecision('weightPerBag'),
     cost: doublePrecision("cost"),
     createdDate: timestamp("createdDate").defaultNow().notNull(),
-    purchaseDate: date("purchaseDate")
+    purchaseDate: date("purchaseDate"),
 });
 
 
