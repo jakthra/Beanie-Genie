@@ -41,11 +41,12 @@ export default function RootLayout({
             <Providers>
               <div className="flex min-h-screen w-full flex-col bg-muted/10">
                 <Navbar />
-                <main className="lg:pl-24">
+                <main className="sm:pl-24">
                   {children}
                 </main>
 
               </div>
+              <ThemePanel />
             </Providers>
           </ThemeProvider>
         </Theme>
