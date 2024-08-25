@@ -1,12 +1,19 @@
 @import '@mantine/core/styles.css';
 @import '@mantine/dates/styles.css';
+@import '@mantine/charts/styles.css';
 @import '@radix-ui/themes/styles.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.radix-themes {
+  --default-font-family: var(--font-sedan);
+}
+
 @layer base {
+
+
   :root {
     --background: var(--grey-1);
     --foreground: 20 14.3% 4.1%;

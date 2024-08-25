@@ -46,7 +46,7 @@ export function PurchaseForm() {
     return (
         <Box>
             <Card>
-                <Box>
+                <Box p='2'>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Flex gap="3" direction="column">
                             <Text as="div" size="2" weight="bold">
