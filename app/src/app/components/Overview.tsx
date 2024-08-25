@@ -28,7 +28,7 @@ export async function Overview() {
                         <InfoCircledIcon />
                     </Callout.Icon>
                     <Callout.Text>
-                        You're missing a few reviews - add them  <Link href="/products" className="text-secondary-foreground">here</Link>
+                        You&apos;re missing a few reviews - add them  <Link href="/products" className="text-secondary-foreground">here</Link>
                     </Callout.Text>
                 </Callout.Root>
             </div>
