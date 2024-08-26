@@ -1,4 +1,4 @@
-import { Flex, Tabs, Box, Card } from "@radix-ui/themes";
+import { Flex, Tabs, Box, Card, Spinner } from "@radix-ui/themes";
 
 import React, { Suspense } from "react";
 import { PurchaseForm } from "./components/forms/PurchaseForm";
@@ -8,6 +8,7 @@ import { PurchaseEntries } from "./components/PurchaseEntries";
 import { ConsumableInventoryEntries } from "./components/ConsumableInventoryEntries";
 import { getConsumableInventory, getPurchases } from "./lib/serverGetters";
 import { Overview } from "./components/Overview";
+import { getInfoCards } from "./lib/clientGetters";
 
 
 export default async function Home() {
@@ -22,9 +23,14 @@ export default async function Home() {
     queryFn: () => getConsumableInventory(),
   })
 
+  await queryClient.prefetchQuery({
+    queryKey: ['info-cards'],
+    queryFn: getInfoCards
+  })
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense>
+      <Suspense fallback={<Spinner />}>
         <Overview />
       </Suspense>
     </HydrationBoundary>
