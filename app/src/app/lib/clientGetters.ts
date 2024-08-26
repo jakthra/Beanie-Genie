@@ -1,5 +1,6 @@
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { inventory, products, purchases } from "./schema";
+import { InfoCardsAPI } from "../api/utils/info-cards/route";
 
 export type InventoryJoined = {
     inventory: InferSelectModel<typeof inventory>
@@ -14,6 +15,10 @@ export type PurchaseJoined = {
 
 export async function getPurchases(): Promise<PurchaseJoined[]> {
     return fetch('/api/purchases').then((res) => res.json())
+}
+
+export async function getInfoCards(): Promise<InfoCardsAPI> {
+    return fetch('/api/utils/info-cards').then((res) => res.json())
 }
 
 export async function addPurchase(data: InferInsertModel<typeof purchases>) {
