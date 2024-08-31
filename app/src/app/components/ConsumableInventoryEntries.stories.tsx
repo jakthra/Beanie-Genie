@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 const mockData: InventoryJoined[] = [{
   inventory: { id: 1, inventoryType: 'consumable', purchaseBagIndex: 0, purchaseId: 1, status: 'inprogress', productId: 1 },
-  products: { id: 1, createdDate: new Date(), originCountry: "Denmark", originRegion: "Kokkedal", productName: 'Jakke kaf', rating: 2, supplier: 'dorkob' },
+  products: { id: 1, createdDate: new Date(), originCountry: "Denmark", originRegion: "Kokkedal", productName: 'Jakke kaf', rating: 2, supplier: 'dorkob', goodWithMilk: false },
   purchases: { id: 1, productId: 1, cost: 50, createdDate: new Date(), numberOfBags: 1, purchaseDate: new Date().toDateString(), weightPerBag: 250 }
 }]
 
