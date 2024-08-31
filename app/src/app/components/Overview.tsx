@@ -5,36 +5,18 @@ import { ConsumableInventoryEntries } from "./ConsumableInventoryEntries"
 import { PurchaseEntries } from "./PurchaseEntries"
 
 import { InfoCards } from "./InfoCards"
+import { InventoryContent } from "./InventoryContent"
+
 
 export async function Overview() {
 
     return (
 
-        <div >
+        <div className="p-4">
             <InfoCards />
             <Flex gap="3" direction={{ 'initial': 'column', 'lg': 'row' }}>
-
+                <InventoryContent />
                 <PurchaseForm />
-                <Box>
-                    <Card >
-                        <Box p="2">
-                            <Tabs.Root defaultValue="consumables">
-                                <Tabs.List>
-                                    <Tabs.Trigger value="consumables">Consumables</Tabs.Trigger>
-                                    <Tabs.Trigger value="purchases">Purchases</Tabs.Trigger>
-                                </Tabs.List>
-                                <Box pt="3">
-                                    <Tabs.Content value="consumables">
-                                        <ConsumableInventoryEntries />
-                                    </Tabs.Content>
-                                    <Tabs.Content value="purchases">
-                                        <PurchaseEntries />
-                                    </Tabs.Content>
-                                </Box>
-                            </Tabs.Root>
-                        </Box>
-                    </Card>
-                </Box>
             </Flex>
         </div>
     )

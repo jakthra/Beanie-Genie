@@ -15,7 +15,7 @@ export async function PATCH(
     }
 
     const updatedInventory = await db.update(products)
-        .set({ originCountry: data.originCountry, originRegion: data.originRegion, rating: data.rating, productName: data.productName })
+        .set({ originCountry: data.originCountry, originRegion: data.originRegion, rating: data.rating, productName: data.productName, goodWithMilk: data.goodWithMilk })
         .where(eq(products.id, params.id))
         .returning();
 
