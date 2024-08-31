@@ -1,4 +1,4 @@
-import { integer, pgEnum, pgTable, serial, uniqueIndex, varchar, doublePrecision, date, timestamp } from 'drizzle-orm/pg-core';
+import { integer, pgEnum, pgTable, serial, uniqueIndex, varchar, doublePrecision, date, timestamp, boolean } from 'drizzle-orm/pg-core';
 
 
 
@@ -10,6 +10,7 @@ export const products = pgTable('products', {
     originCountry: varchar('originCountry', { length: 256 }),
     rating: integer("rating").default(0).notNull(),
     createdDate: timestamp("createdDate").defaultNow().notNull(),
+    goodWithMilk: boolean("goodWithMilk")
 });
 
 

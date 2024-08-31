@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Sedan, Taviraj, Noto_Serif, Noto_Sans } from "next/font/google";
+import { Inter, Sedan, Taviraj, Noto_Serif, Noto_Sans, Shrikhand } from "next/font/google";
 import "./globals.css";
 import { Theme, ThemePanel } from "@radix-ui/themes";
 import {
@@ -44,9 +44,7 @@ export default function RootLayout({
                 <main className="sm:pl-24">
                   {children}
                 </main>
-
               </div>
-              <ThemePanel />
             </Providers>
           </ThemeProvider>
         </Theme>

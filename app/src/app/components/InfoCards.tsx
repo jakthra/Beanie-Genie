@@ -14,7 +14,7 @@ export function InfoCards() {
     })
 
     return (
-        <>
+        <div>
             <Text size={'8'}>Inventory</Text>
             <div className="grid w-96 pt-8 pb-8 gap-3">
                 <Callout.Root>
@@ -26,7 +26,7 @@ export function InfoCards() {
                     </Callout.Text>
                 </Callout.Root>
             </div>
-            <div className="flex pt-3 pb-8 gap-3">
+            <div className="flex flex-col sm:flex-row pt-3 pb-8 gap-3 ">
                 <Card >
                     <div className="flex flex-col gap-2 p-2">
                         <div className="flex items-center gap-2">
@@ -83,6 +83,6 @@ export function InfoCards() {
                     </div>
                 </Card>
             </div>
-        </>
+        </div>
     )
 }

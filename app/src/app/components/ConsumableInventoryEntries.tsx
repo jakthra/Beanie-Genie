@@ -1,10 +1,14 @@
 'use client'
 import { Card, Spinner, Table, Text, Badge, DropdownMenu, Flex, Box, Link, IconButton, Popover, SegmentedControl, Checkbox, Skeleton } from "@radix-ui/themes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { getInventory, patchInventory, patchProduct } from "../lib/clientGetters";
 import { IconStar, IconStarFilled, IconStarOff } from "@tabler/icons-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { products } from "../lib/schema";
+import { InferSelectModel } from "drizzle-orm";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { Milk } from "lucide-react";
 
 function getStatusColor(status: 'unopened' | 'inprogress' | 'empty') {
     if (status === 'unopened') {
@@ -20,6 +24,52 @@ function getStatusColor(status: 'unopened' | 'inprogress' | 'empty') {
 
 const emptyAndOld = { textDecoration: 'line-through', background: 'text-accent' }
 
+interface ProductPopoverProps {
+    product: InferSelectModel<typeof products>
+    children: ReactNode
+}
+
+export function ProductPopover(props: ProductPopoverProps) {
+
+    const queryClient = useQueryClient()
+    const mutationProduct = useMutation({
+        mutationFn: patchProduct,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['inventory', 'consumable'] })
+            queryClient.invalidateQueries({ queryKey: ['info-cards'] })
+        },
+    })
+    return (<Popover.Root>
+        <Popover.Trigger>
+            <Text style={{ 'cursor': 'pointer' }}>
+                {props.children}
+            </Text>
+        </Popover.Trigger>
+        <Popover.Content>
+            <Flex>
+                <Flex direction={"column"} gap="4">
+                    <Text size={"2"}>Rating</Text>
+                    <Flex gap="1">
+                        <IconButton radius="full" variant={props.product.rating > 0 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...props.product, rating: 1 }) }}><IconStarFilled size="12" /></IconButton>
+                        <IconButton radius="full" variant={props.product.rating > 1 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...props.product, rating: 2 }) }}><IconStarFilled size="12" /></IconButton>
+                        <IconButton radius="full" variant={props.product.rating > 2 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...props.product, rating: 3 }) }}><IconStarFilled size="12" /></IconButton>
+                        <IconButton radius="full" variant={props.product.rating > 3 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...props.product, rating: 4 }) }}><IconStarFilled size="12" /></IconButton>
+                        <IconButton radius="full" variant={props.product.rating > 4 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...props.product, rating: 5 }) }}><IconStarFilled size="12" /></IconButton>
+                    </Flex>
+
+                    <div className="flex gap-2 items-center">
+                        <IconButton radius="large" variant={props.product.goodWithMilk ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...props.product, goodWithMilk: props.product.goodWithMilk ? false : true }) }}>
+                            <Milk size="14" />
+                        </IconButton>
+                        <Text size={"1"}>Good with milk?</Text>
+
+                    </div>
+                </Flex>
+            </Flex>
+        </Popover.Content>
+    </Popover.Root>)
+}
+
 
 export function ConsumableInventoryEntries() {
     const queryClient = useQueryClient()
@@ -32,15 +82,11 @@ export function ConsumableInventoryEntries() {
         mutationFn: patchInventory,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['inventory', 'consumable'] })
+            queryClient.invalidateQueries({ queryKey: ['info-cards'] })
         },
     })
 
-    const mutationProduct = useMutation({
-        mutationFn: patchProduct,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['inventory', 'consumable'] })
-        },
-    })
+
 
     const [filter, setFilter] = useState('all')
 
@@ -92,31 +138,11 @@ export function ConsumableInventoryEntries() {
                                 </Table.RowHeaderCell>
                                 <Table.Cell>{entry.products.supplier}</Table.Cell>
                                 <Table.Cell>
-                                    <Popover.Root>
-                                        <Popover.Trigger>
-                                            <Text style={{ 'cursor': 'pointer' }}>
-                                                <Link >
-                                                    {entry.products.productName} {entry.products.rating === 5 && '🔥'}
-                                                </Link>
-                                            </Text>
-                                        </Popover.Trigger>
-                                        <Popover.Content>
-                                            <Flex>
-                                                <Box asChild flexShrink="0">
-                                                    <Flex direction={"column"} gap="2">
-                                                        <Text size={"1"}>Rating</Text>
-                                                        <Flex gap="1">
-                                                            <IconButton radius="full" variant={entry.products.rating > 0 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...entry.products, rating: 1 }) }}><IconStarFilled size="12" /></IconButton>
-                                                            <IconButton radius="full" variant={entry.products.rating > 1 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...entry.products, rating: 2 }) }}><IconStarFilled size="12" /></IconButton>
-                                                            <IconButton radius="full" variant={entry.products.rating > 2 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...entry.products, rating: 3 }) }}><IconStarFilled size="12" /></IconButton>
-                                                            <IconButton radius="full" variant={entry.products.rating > 3 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...entry.products, rating: 4 }) }}><IconStarFilled size="12" /></IconButton>
-                                                            <IconButton radius="full" variant={entry.products.rating > 4 ? "solid" : "soft"} onClick={() => { mutationProduct.mutate({ ...entry.products, rating: 5 }) }}><IconStarFilled size="12" /></IconButton>
-                                                        </Flex>
-                                                    </Flex>
-                                                </Box>
-                                            </Flex>
-                                        </Popover.Content>
-                                    </Popover.Root>
+                                    <ProductPopover product={entry.products}>
+                                        <Link >
+                                            {entry.products.productName} {entry.products.rating === 5 && '🔥'}
+                                        </Link>
+                                    </ProductPopover>
                                 </Table.Cell>
                                 <Table.Cell>{entry.inventory.purchaseBagIndex}</Table.Cell>
                                 <Table.Cell>{`${entry.purchases.weightPerBag}`} <Text color="gray">g</Text></Table.Cell>
