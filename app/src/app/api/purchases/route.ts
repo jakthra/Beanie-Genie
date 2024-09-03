@@ -23,7 +23,7 @@ export async function POST(
   const data = await req.json()
   // Check if a product exist 
   let productData = await db.select().from(products).where(eq(products.productName, data.productName))
-  if (productData === undefined) {
+  if (productData.length === 0) {
     productData = await db.insert(products).values({ supplier: data.supplier, originCountry: data.originCountry, originRegion: data.originRegion, productName: data.productName }).returning();
   }
   const returnData = await db.insert(purchases).values({ numberOfBags: data.numberOfBags, cost: data.cost, productId: productData[0].id, purchaseDate: data.purchaseDate, weightPerBag: data.weightPerBag }).returning();

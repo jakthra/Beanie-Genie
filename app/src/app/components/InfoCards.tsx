@@ -37,7 +37,7 @@ export function InfoCards() {
                         </div>
                         {status == 'pending' && <Skeleton />}
                         {status == 'success' && <Text size={"8"}>{data?.totalBoughtWeight && data?.totalBoughtWeight[0].value}g</Text>}
-                        {status == 'success' && <Text size={"1"} color="gray">Last purchase was on {data?.lastPurchase && data?.lastPurchase[0].purchaseDate}</Text>}
+                        {status == 'success' && <Text size={"1"} color="gray">Last purchase was on {data?.lastPurchase && data?.lastPurchase[0]?.purchaseDate}</Text>}
                     </div>
                 </Card>
                 <Card >
@@ -50,8 +50,8 @@ export function InfoCards() {
                         </div>
                         {/* TODO: This might need to be revisited */}
                         {status == 'pending' && <Skeleton />}
-                        {status == 'success' && <Text size={"8"}>{data?.consumedWeightByMonth[0].weight}g</Text>}
-                        {status == 'success' && <Text size={"1"} color="gray">{Number(data?.gramsAnHour[0].gramsAnHours).toFixed(1)} g/hour</Text>}
+                        {status == 'success' && <Text size={"8"}>{data?.consumedWeightByMonth[0]?.weight}g</Text>}
+                        {status == 'success' && <Text size={"1"} color="gray">{Number(data?.gramsAnHour[0]?.gramsAnHours).toFixed(1)} g/hour</Text>}
                     </div>
                 </Card>
                 <Card >
@@ -65,8 +65,8 @@ export function InfoCards() {
                         {/* TODO: This might need to be revisited */}
 
                         {status == 'pending' && <Skeleton />}
-                        {status == 'success' && <Text size={"8"}>{data?.costByMonth[0].cost}dkk</Text>}
-                        {status == 'success' && <Text size={"1"} color="gray">+{data?.costByMonth.slice(-1)[0].cost}dkk from last month</Text>}
+                        {status == 'success' && <Text size={"8"}>{data?.costByMonth[0]?.cost}dkk</Text>}
+                        {status == 'success' && <Text size={"1"} color="gray">+{data?.costByMonth.slice(-1)[0]?.cost}dkk from last month</Text>}
                     </div>
                 </Card>
                 <Card >

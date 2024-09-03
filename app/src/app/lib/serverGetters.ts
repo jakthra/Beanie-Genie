@@ -43,5 +43,9 @@ export async function getArmageddonDate() {
     }
     const resultingHours = nonConsumedTotalGram[0].grams / gramsAnHour[0].gramsAnHours
     const resultingDateEpochHour = new Date().getTime() / (3600 * 1000) + resultingHours
-    return new Date(resultingDateEpochHour * (3600 * 1000))
+    const dateToReturn = new Date(resultingDateEpochHour * (3600 * 1000))
+    if (isNaN(dateToReturn.getTime())) {
+        return null
+    }
+    return dateToReturn
 }
