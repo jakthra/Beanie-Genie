@@ -21,5 +21,5 @@ export async function GET(
     const gramsAnHour = await getGramsPerHour()
     const armageddonDate = await getArmageddonDate()
 
-    return NextResponse.json({ totalBoughtWeight: totalBought, armageddonDate: armageddonDate?.toISOString(), consumedWeightByMonth: consumedWeightByMonth, lastPurchase: lastPurchase, costByMonth: costByMonth, gramsAnHour: gramsAnHour })
+    return NextResponse.json({ totalBoughtWeight: totalBought, armageddonDate: armageddonDate ? armageddonDate.toISOString() : '', consumedWeightByMonth: consumedWeightByMonth, lastPurchase: lastPurchase, costByMonth: costByMonth, gramsAnHour: gramsAnHour })
 }
