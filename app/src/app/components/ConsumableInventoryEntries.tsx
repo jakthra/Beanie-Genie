@@ -80,9 +80,9 @@ export function ConsumableInventoryEntries() {
 
     const mutationInventory = useMutation({
         mutationFn: patchInventory,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['inventory', 'consumable'] })
-            queryClient.invalidateQueries({ queryKey: ['info-cards'] })
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ['inventory', 'consumable'] });
+            await queryClient.invalidateQueries({ queryKey: ['info-cards'] });
         },
     })
 
